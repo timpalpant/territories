@@ -1,0 +1,119 @@
+package us.palpant.games.players {
+	import flash.display.DisplayObject;
+	
+	import mx.collections.ArrayCollection;
+	import mx.core.Application;
+	import mx.events.CloseEvent;
+	import mx.managers.PopUpManager;
+	
+	import us.palpant.games.players.playerManagerClasses.PlayerManagerWindow;
+	import us.palpant.utils.PseudoRandomColor;
+	
+	/**
+	 * Manages players in a game 
+	 * @author timpalpant
+	 * 
+	 */
+	public class PlayerManager {
+		
+		/**
+		 * Collection of players in the game 
+		 */
+		[Bindable] public var players:ArrayCollection = new ArrayCollection();
+		
+		/**
+		 * The current player (player whose turn it is) 
+		 */
+		[Bindable] public var currentPlayer:Player;
+		
+		/**
+		 * Index of the current player in the players array 
+		 */
+		private var _currentPlayerIndex:uint = 0;
+		
+		public function get currentPlayerIndex():uint { return _currentPlayerIndex; }
+		
+		/**
+		 * The max number of players allowed in this game 
+		 */
+		private var _maxPlayers:uint;
+		
+		public function get maxPlayers():uint { return _maxPlayers; }
+		
+		/**
+		 * TitleWindow which allows visual player management 
+		 */
+		private var _managerWindow:PlayerManagerWindow;
+		
+		
+		/**
+		 * Constructor 
+		 * @param maxPlayers number of people that can play the game
+		 * 
+		 */
+		public function PlayerManager(maxPlayers:uint = 2) {
+			_maxPlayers = maxPlayers;
+		}
+		
+		/**
+		 * Adds a player to the game with an (optionally) specified name
+		 * Auto-generates an appropriate color, cycling through blue/green/red
+		 * @return the newly added player
+		 * 
+		 */
+		public function add(name:String = null):Player {
+			// Rotate player color (blue, green, red)
+			var playerColor:uint;
+			switch(players.length % 3) {
+				case 0: playerColor = PseudoRandomColor.blue();
+					break;
+				case 1: playerColor = PseudoRandomColor.green();
+					break;
+				case 2: playerColor = PseudoRandomColor.red();
+					break;
+			}
+			
+			// Instantiate a new player and add it to the collection of players
+			var player:Player = new Player(name, playerColor);
+			players.addItem(player);
+			
+			return player;
+		}
+		
+		/**
+		 * Rotates the current player
+		 * @return the new active player
+		 * 
+		 */
+		public function next():Player {
+			_currentPlayerIndex++;
+			
+			// Cycle back around
+			if(_currentPlayerIndex >= players.length)
+				_currentPlayerIndex = 0;
+				
+			currentPlayer = players.getItemAt(_currentPlayerIndex) as Player;
+			
+			return currentPlayer;
+		}
+		
+		/**
+		 * Visually manage players with a modal popup 
+		 */
+		public function showWindow():void {
+			_managerWindow = PopUpManager.createPopUp(Application.application as DisplayObject, PlayerManagerWindow, true) as PlayerManagerWindow;
+			_managerWindow.playerManager = this;
+			PopUpManager.centerPopUp(_managerWindow);
+			
+			_managerWindow.addEventListener(CloseEvent.CLOSE, onManagerWindowClose);
+		}
+		
+		private function onManagerWindowClose(event:CloseEvent):void {
+			PopUpManager.removePopUp(_managerWindow);
+			
+			// Randomly select who goes first
+			_currentPlayerIndex = Math.round(Math.random() * players.length);
+			currentPlayer = players.getItemAt(_currentPlayerIndex) as Player;
+		}
+	}
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:boards="us.palpant.games.boards.*"
+	layout="vertical" pageTitle="Ryan\'s Territories Game" 
+	creationComplete="onCreationComplete()">
+	
+	<mx:Style source="assets/styles/main.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.containers.GridItem;
+			import mx.controls.Alert;
+			import mx.events.ListEvent;
+			import us.palpant.games.players.PlayerManager;
+		
+			[Bindable] private var playerManager:PlayerManager;
+		
+			private function onCreationComplete():void {
+				playerManager = new PlayerManager(4);
+				playerManager.showWindow();
+			}
+			
+			private function onGridItemClick(event:ListEvent):void {
+				var gridItem:GridItem = event.target as GridItem;
+				gridItem.setStyle("backgroundColor", playerManager.currentPlayer.color);
+				
+				playerManager.next();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Panel title="Territories" 
+		height="100%" width="90%" layout="horizontal">
+		
+		<boards:GridBoard rows="10" columns="10"
+			height="100%" width="{height}"
+			itemClick="onGridItemClick(event)"/>
+		
+		<mx:VBox width="250">
+			<mx:VBox id="playersBox">
+				<mx:Label text="Players"
+				 	fontSize="14" fontWeight="bold"/>
+			 	<mx:DataGrid id="playersDataGrid" width="100%"
+			 		dataProvider="{playerManager.players}" />
+			</mx:VBox>
+			
+			<mx:VBox id="scoreBox">
+				<mx:Label text="Score"
+				 	fontSize="14" fontWeight="bold"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:Panel>
+	
+</mx:Application>

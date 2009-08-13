@@ -1,0 +1,23 @@
+/* CSS file */
+Application {
+	theme-color: haloBlue;
+	background-color: #444444;
+}
+
+global {
+    modalTransparencyBlur: 10;
+    modalTransparency: 0.8;
+    modalTransparencyColor: #333333;
+    modalTransparencyDuration: 500;
+}
+
+Grid {
+	horizontal-gap: 0;
+	vertical-gap: 0;
+}
+
+GridItem {
+	border-color: #000000;
+	border-style: solid;
+	border-thickness: 1;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Tile xmlns:mx="http://www.adobe.com/2006/mxml"
+	height="100%" width="{height}">
+	
+    <mx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+  
+            [Bindable]
+            private var dp:Array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        ]]>
+    </mx:Script>
+	
+	<mx:Repeater id="rp" dataProvider="{dp}">
+        <mx:Button height="49" width="50" 
+            label="{String(rp.currentItem)}" 
+            click="Alert.show(String(event.currentTarget.getRepeaterItem()) + ' pressed')"/>
+    </mx:Repeater>  
+	
+</mx:Tile>

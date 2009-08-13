@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Visual representation of a player
+-->
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" verticalAlign="middle">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ColorPickerEvent;
+			import us.palpant.games.players.Player;
+			
+			/**
+			 * Reference to the player model which this entry represents
+			 */
+			[Bindable] public var player:Player;
+			
+			/**
+			* Manual reverse binding since it doesn't work correctly for ColorPicker
+			*/
+			private function onColorChange(event:ColorPickerEvent):void {
+				player.color = event.color;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:addedEffect>
+		<mx:Fade duration="1300"/>
+	</mx:addedEffect>
+	
+	<!-- Set up reverse bindings so changes in the form are reflected in the object -->
+	<mx:Binding source="nameField.text" destination="player.name" />
+	
+	<mx:Image source="@Embed(source='/assets/images/person.png')" 
+		height="40" width="40"/>
+		
+	<mx:Label text="Name:"/>
+	<mx:TextInput id="nameField" text="{player.name}"/>
+	<mx:ColorPicker id="colorField" selectedColor="{player.color}" change="onColorChange(event)"/>
+	
+</mx:HBox>
