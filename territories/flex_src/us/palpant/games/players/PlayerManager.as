@@ -113,7 +113,6 @@ package us.palpant.games.players {
 		public function showWindow():void {
 			_managerWindow = PopUpManager.createPopUp(Application.application as DisplayObject, PlayerManagerWindow, true) as PlayerManagerWindow;
 			_managerWindow.playerManager = this;
-			PopUpManager.centerPopUp(_managerWindow);
 			
 			_managerWindow.addEventListener(CloseEvent.CLOSE, onManagerWindowClose);
 		}
