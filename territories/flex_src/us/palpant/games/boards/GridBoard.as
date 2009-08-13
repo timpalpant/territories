@@ -1,7 +1,5 @@
 package us.palpant.games.boards {
-	import flash.events.MouseEvent;
-	
-	import mx.events.ListEvent;
+
 	import mx.containers.Grid;
 	
 	import us.palpant.games.boards.gridBoardClasses.*;
@@ -38,23 +36,10 @@ package us.palpant.games.boards {
 					var gridItem:GridBoardItem = new GridBoardItem(i, j);
 					gridItem.percentHeight = 100;
 					gridItem.percentWidth = 100;
-					gridItem.addEventListener(MouseEvent.CLICK, onGridItemClick);
+					gridItem.itemClickEnabled = true;
 					gridRow.addChild(gridItem);
 				}
 			}
-		}
-		
-		/**
-		 * Catches the MouseEvent.CLICK on individual cells in the grid and 
-		 * dispatches a ListEvent.ITEM_CLICK so the individual GridItem can be
-		 * targeted and the rowIndex, columnIndex sent
-		 * @param event
-		 * 
-		 */
-		private function onGridItemClick(event:MouseEvent):void {
-			var gridItem:GridBoardItem = event.currentTarget as GridBoardItem;
-			
-			gridItem.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK, true, false, gridItem.columnIndex, gridItem.rowIndex));
 		}
 	}
 }

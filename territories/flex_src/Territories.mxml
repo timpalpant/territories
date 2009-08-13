@@ -9,10 +9,11 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import mx.containers.GridItem;
 			import mx.controls.Alert;
 			import mx.events.ListEvent;
+			
 			import us.palpant.games.players.PlayerManager;
+			import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 		
 			[Bindable] private var playerManager:PlayerManager;
 		
@@ -22,8 +23,9 @@
 			}
 			
 			private function onGridItemClick(event:ListEvent):void {
-				var gridItem:GridItem = event.target as GridItem;
+				var gridItem:GridBoardItem = event.target as GridBoardItem;
 				gridItem.setStyle("backgroundColor", playerManager.currentPlayer.color);
+				gridItem.itemClickEnabled = false;
 				
 				playerManager.next();
 			}
