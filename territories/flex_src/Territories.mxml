@@ -9,23 +9,22 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import us.palpant.games.territories.Territory;
 			import mx.collections.ArrayCollection;
 			import mx.events.ListEvent;
 			
 			import us.palpant.games.players.PlayerManager;
-			import us.palpant.games.territories.TerritoriesModel;
+			import us.palpant.games.territories.TerritoryManager;
 			import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 			import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 		
 			[Bindable] private var playerManager:PlayerManager;
-			[Bindable] private var model:TerritoriesModel;
+			[Bindable] private var territoryManager:TerritoryManager;
 		
 			private function onCreationComplete():void {
 				playerManager = new PlayerManager(4);
 				playerManager.showWindow();
 				
-				model = new TerritoriesModel();
+				territoryManager = new TerritoryManager();
 			}
 			
 			private function onGridItemClick(event:ListEvent):void {
@@ -35,8 +34,7 @@
 				gridItem.itemClickEnabled = false;
 				
 				// Mark the territory owner in the model
-				var territory:Territory = model[event.rowIndex][event.columnIndex] as Territory;
-				territory.owner = playerManager.currentPlayer;
+				territoryManager.setSelected(event.rowIndex, event.columnIndex, playerManager.currentPlayer);
 				
 				// Change to the next player
 				playerManager.next();

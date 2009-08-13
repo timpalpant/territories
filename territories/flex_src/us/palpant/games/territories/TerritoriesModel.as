@@ -3,8 +3,6 @@ package us.palpant.games.territories {
 
 	public class TerritoriesModel extends Array {
 		
-		private var _help:Boolean;
-		
 		public function TerritoriesModel() {
 			super(10);
 			
@@ -18,17 +16,8 @@ package us.palpant.games.territories {
 			}
 		}
 		
-		public function getScore(row:uint, column:uint):String {
-			var territory:Territory = this[row][column] as Territory;
-
-			
-
-			return territory.owner.name;
-		}
-
-		public function setSelected(player:Player, row:uint, column:uint):void {
-			var territory:Territory = this[row][column] as Territory;
-			territory.owner = player;
+		public function onGrid(rowIndex:uint, columnIndex:uint):Boolean {
+			return (rowIndex < this.length) && (columnIndex < this[0].length);
 		}
 	}
 }
