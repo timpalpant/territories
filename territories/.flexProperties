@@ -1,2 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<flexProperties flexServerType="8" flexWarLocation="/Users/timpalpant/Downloads/blazeds-bin-3/blazeds.war" serverContextRoot="/WebContent" serverRoot="/Users/timpalpant/Documents/Flex/Territories/WebContent" serverRootURL="http://localhost:8080/Territories" toolCompile="true" useServerFlexSDK="false" version="1"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexProperties flexServerType="8" flexWarLocation="/Users/timpalpant/Downloads/blazeds-bin-3/blazeds.war" serverContextRoot="/WebContent" serverRoot="${DOCUMENTS}/Territories/WebContent" serverRootURL="http://localhost:8080/Territories" toolCompile="true" useServerFlexSDK="false" version="1"/>

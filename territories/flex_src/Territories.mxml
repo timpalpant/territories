@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:boards="us.palpant.games.boards.*"
+	xmlns:players="us.palpant.games.players.*"
 	layout="vertical" pageTitle="Ryan\'s Territories Game" 
 	creationComplete="onCreationComplete()">
 	
@@ -9,24 +10,33 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
 			import mx.events.ListEvent;
 			
 			import us.palpant.games.players.PlayerManager;
+			import us.palpant.games.territories.TerritoryManager;
+			import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 			import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 		
 			[Bindable] private var playerManager:PlayerManager;
+			[Bindable] private var territoryManager:TerritoryManager;
 		
 			private function onCreationComplete():void {
 				playerManager = new PlayerManager(4);
 				playerManager.showWindow();
+				
+				territoryManager = new TerritoryManager();
 			}
 			
 			private function onGridItemClick(event:ListEvent):void {
+				// Change the board to reflect the color of the owner and disable changing
 				var gridItem:GridBoardItem = event.target as GridBoardItem;
 				gridItem.setStyle("backgroundColor", playerManager.currentPlayer.color);
 				gridItem.itemClickEnabled = false;
 				
+				// Mark the territory owner in the model
+				territoryManager.setSelected(playerManager.currentPlayer, event.rowIndex, event.columnIndex);
+				
+				// Change to the next player
 				playerManager.next();
 			}
 		]]>
@@ -34,23 +44,15 @@
 	
 	<mx:Panel title="Territories" 
 		height="100%" width="90%" layout="horizontal">
-		
-		<boards:GridBoard rows="10" columns="10"
+
+		<boards:GridBoard id="gameBoard" rows="10" columns="10"
 			height="100%" width="{height}"
 			itemClick="onGridItemClick(event)"/>
 		
 		<mx:VBox width="250">
-			<mx:VBox id="playersBox">
-				<mx:Label text="Players"
-				 	fontSize="14" fontWeight="bold"/>
-			 	<mx:DataGrid id="playersDataGrid" width="100%"
-			 		dataProvider="{playerManager.players}" />
-			</mx:VBox>
-			
-			<mx:VBox id="scoreBox">
-				<mx:Label text="Score"
-				 	fontSize="14" fontWeight="bold"/>
-			</mx:VBox>
+			<mx:Label text="Players" fontSize="14" fontWeight="bold"/>
+			<players:PlayerList players="{playerManager.players}" 
+				currentPlayer="{playerManager.currentPlayer}"/>
 		</mx:VBox>
 	</mx:Panel>
 	

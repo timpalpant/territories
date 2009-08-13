@@ -19,12 +19,22 @@ package us.palpant.games.players {
 		/**
 		 * Collection of players in the game 
 		 */
-		[Bindable] public var players:ArrayCollection = new ArrayCollection();
+		private var _players:ArrayCollection = new ArrayCollection();
+		
+		public function get players():ArrayCollection { return _players; }
 		
 		/**
 		 * The current player (player whose turn it is) 
 		 */
-		[Bindable] public var currentPlayer:Player;
+		private var _currentPlayer:Player;
+		
+		[Bindable]
+		public function get currentPlayer():Player { return _currentPlayer; }
+		
+		public function set currentPlayer(player:Player):void {
+			_currentPlayer = player;
+			_currentPlayerIndex = players.getItemIndex(player);
+		}
 		
 		/**
 		 * Index of the current player in the players array 
@@ -74,7 +84,7 @@ package us.palpant.games.players {
 			}
 			
 			// Instantiate a new player and add it to the collection of players
-			var player:Player = new Player(name, playerColor);
+			var player:Player = new Player(players.length, name, playerColor);
 			players.addItem(player);
 			
 			return player;
@@ -112,7 +122,7 @@ package us.palpant.games.players {
 			PopUpManager.removePopUp(_managerWindow);
 			
 			// Randomly select who goes first
-			_currentPlayerIndex = Math.round(Math.random() * players.length);
+			_currentPlayerIndex = Math.round(Math.random() * (players.length-1));
 			currentPlayer = players.getItemAt(_currentPlayerIndex) as Player;
 		}
 	}

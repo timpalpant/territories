@@ -1,6 +1,11 @@
 package us.palpant.utils {
 	import flash.geom.ColorTransform;
 	
+	/**
+	 * Generates a pseudo-random, biased color 
+	 * @author c098782
+	 * 
+	 */
 	public class PseudoRandomColor {
 
 		/**
