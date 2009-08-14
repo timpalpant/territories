@@ -71,7 +71,7 @@ package us.palpant.games.players {
 		 * @return the newly added player
 		 * 
 		 */
-		public function add(name:String = null):Player {
+		public function add(type:String, name:String = null):Player {
 			// Rotate player color (blue, green, red)
 			var playerColor:uint;
 			switch(players.length % 3) {
@@ -84,7 +84,7 @@ package us.palpant.games.players {
 			}
 			
 			// Instantiate a new player and add it to the collection of players
-			var player:Player = new Player(players.length, name, playerColor);
+			var player:Player = new Player(players.length, type, name, playerColor);
 			players.addItem(player);
 			
 			return player;

@@ -29,7 +29,7 @@
 			private function addPlayer():void {
 				// Show the visual representation of the player
 				var playerManagerEntry:PlayerManagerEntry = new PlayerManagerEntry();
-				playerManagerEntry.player = playerManager.add();
+				playerManagerEntry.player = playerManager.add(Player.HUMAN);
 				
 				// Add the player to the playersBox and resize the window
 				playersBox.addChild(playerManagerEntry);

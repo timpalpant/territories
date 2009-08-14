@@ -7,16 +7,40 @@ package us.palpant.games.players {
 	 */
 	public class Player {
 		
+		public static const HUMAN:String = "humanPlayer";
+		public static const COMPUTER:String = "computerPlayer";
+		
+		/**
+		 * Unique player id 
+		 */
 		private var _id:uint;
 		
 		public function get id():uint { return _id; }
 		
+		/**
+		 * Player type (human/computer) 
+		 */
+		[Bindable] public var type:String;
+		
+		/**
+		 * Player's color for game pieces, etc. 
+		 */
 		[Bindable] public var color:uint;
+		
+		/**
+		 * Player's name 
+		 */
 		[Bindable] public var name:String;
+		
+		/**
+		 * Player's score in the current game
+		 */
 		[Bindable] public var score:Number;
 
-		public function Player(id:uint, name:String=null, color:uint=0) {
+		public function Player(id:uint, type:String, name:String=null, color:uint=0) {
 			_id = id;
+			
+			this.type = type;
 			this.name = name;
 			this.color = color;
 			this.score = 0;

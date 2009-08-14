@@ -15,24 +15,45 @@
 			 */
 			[Bindable] public var player:Player;
 			
+			[Embed(source="/assets/images/person.png")]
+			private static const person:Class;
+			
+			[Embed(source="/assets/images/computer.png")]
+			private static const computer:Class;
+			
 			/**
-			* Manual reverse binding since it doesn't work correctly for ColorPicker
-			*/
+			 * Manual reverse binding since it doesn't work correctly for ColorPicker
+			 */
 			private function onColorChange(event:ColorPickerEvent):void {
 				player.color = event.color;
+			}
+			
+			/**
+			 * Switch player type in the model and
+			 * change the image 
+			 */
+			private function changePlayerType():void {
+				if(player.type == Player.HUMAN) {
+					player.type = Player.COMPUTER;
+					playerTypeImage.source = computer;
+				} else {
+					player.type = Player.HUMAN;
+					playerTypeImage.source = person;
+				}
 			}
 		]]>
 	</mx:Script>
 	
 	<mx:addedEffect>
-		<mx:Fade duration="1300"/>
+		<mx:Fade duration="1500"/>
 	</mx:addedEffect>
 	
 	<!-- Set up reverse bindings so changes in the form are reflected in the object -->
 	<mx:Binding source="nameField.text" destination="player.name" />
 	
-	<mx:Image source="@Embed(source='/assets/images/person.png')" 
-		height="40" width="40"/>
+	<mx:Image id="playerTypeImage" source="{person}" 
+		height="40" width="40"
+		click="changePlayerType()"/>
 		
 	<mx:Label text="Name:"/>
 	<mx:TextInput id="nameField" text="{player.name}"/>
