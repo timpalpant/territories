@@ -22,7 +22,7 @@
  			</mx:DataGridColumn>
  			<mx:DataGridColumn id="nameColumn" headerText="Name" 
  				dataField="name" />
- 			<mx:DataGridColumn id="scoreColumn" headerText="Score" 
+ 			<mx:DataGridColumn id="scoreColumn" headerText="Score" width="50"
  				dataField="score" />
  		</mx:columns>
  	</mx:DataGrid>

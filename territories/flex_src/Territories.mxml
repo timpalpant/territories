@@ -53,7 +53,7 @@
 			height="100%" width="{height}"
 			itemClick="onGridItemClick(event)"/>
 		
-		<mx:VBox width="250">
+		<mx:VBox width="250" horizontalAlign="center">
 			<mx:Label text="Players" fontSize="14" fontWeight="bold"/>
 			<players:PlayerList players="{playerManager.players}" 
 				currentPlayer="{playerManager.currentPlayer}"/>
