@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
 <wb-module deploy-name="Territories">
+				<wb-resource source-path="/src" deploy-path="/"/>
+				<wb-resource deploy-path="/" source-path="/sr"/>
 <wb-resource deploy-path="/" source-path="/WebContent"/>
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
 <wb-resource deploy-path="/" source-path="/bin-debug"/>
-<wb-resource deploy-path="/" source-path="/flex_src"/>
+<wb-resource deploy-path="/" source-path="/s"/>
 <property name="context-root" value="Territories"/>
 <property name="java-output-path" value="WebContent/WEB-INF/classes"/>
 </wb-module>
