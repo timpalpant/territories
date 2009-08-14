@@ -1,5 +1,7 @@
 package us.palpant.games.players {
 	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	
 	import mx.collections.ArrayCollection;
 	import mx.core.Application;
@@ -14,7 +16,7 @@ package us.palpant.games.players {
 	 * @author timpalpant
 	 * 
 	 */
-	public class PlayerManager {
+	public class PlayerManager extends EventDispatcher {
 		
 		/**
 		 * Collection of players in the game 
@@ -123,6 +125,9 @@ package us.palpant.games.players {
 			// Randomly select who goes first
 			_currentPlayerIndex = Math.round(Math.random() * (players.length-1));
 			currentPlayer = players.getItemAt(_currentPlayerIndex) as Player;
+			
+			// Dispatch an event to signal that players are set up
+			dispatchEvent(new Event(Event.CLOSE));
 		}
 	}
 }

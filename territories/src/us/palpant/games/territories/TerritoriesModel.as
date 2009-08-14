@@ -118,5 +118,16 @@ package us.palpant.games.territories {
 			
 			return 0;
 		}
+		
+		public function get full():Boolean {
+			for each(var row:Array in this) {
+				for each(var territory:Territory in row) {
+					if(!territory.selected)
+						return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 }
