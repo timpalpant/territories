@@ -28,8 +28,17 @@ package us.palpant.games.boards.gridBoardClasses {
 		 */
 		private function onClick(event:MouseEvent):void {
 			if(itemClickEnabled) {
-				dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK, true, false, columnIndex, rowIndex));
+				dispatchSelectionEvent();
 			}
+		}
+		
+		/**
+		 * Dispatches a ListEvent.ITEM_CLICK from this territory
+		 * with its coordinates 
+		 * 
+		 */
+		public function dispatchSelectionEvent():void {
+			dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK, true, false, columnIndex, rowIndex));
 		}
 	}
 }

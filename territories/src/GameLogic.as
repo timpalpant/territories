@@ -38,7 +38,7 @@ private function computerMove():void {
 	var computerSelection:Territory = computerAI.select(model);
 	
 	var selectedItem:GridBoardItem = (gameBoard.getChildAt(computerSelection.rowIndex) as GridBoardRow).getChildAt(computerSelection.columnIndex) as GridBoardItem;
-	selectedItem.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK, true, false, computerSelection.columnIndex, computerSelection.rowIndex));
+	selectedItem.dispatchSelectionEvent();
 }
 
 private function onGridItemClick(event:ListEvent):void {
