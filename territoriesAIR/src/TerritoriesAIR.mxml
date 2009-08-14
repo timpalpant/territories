@@ -4,52 +4,11 @@
 	xmlns:players="us.palpant.games.players.*"
 	layout="vertical" pageTitle="Ryan\'s Territories Game" 
 	creationComplete="onCreationComplete()" viewSourceURL="srcview/index.html"
-	initialize="init()">
+	initialize="maximize()">
 	
 	<mx:Style source="assets/styles/main.css"/>
 	
-	<mx:Script>
-		<![CDATA[
-			import us.palpant.games.territories.Territory;
-			import us.palpant.games.territories.TerritoriesModel;
-			import mx.events.ListEvent;
-			
-			import us.palpant.games.players.PlayerManager;
-			import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
-			import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
-		
-			[Bindable] private var playerManager:PlayerManager;
-			[Bindable] private var model:TerritoriesModel;
-			
-			private function init():void {
-				maximize();
-			}
-		
-			private function onCreationComplete():void {
-				playerManager = new PlayerManager(4);
-				playerManager.showWindow();
-				
-				model = new TerritoriesModel(10, 10);
-			}
-			
-			private function onGridItemClick(event:ListEvent):void {
-				// Change the board to reflect the color of the owner and disable item click
-				var gridItem:GridBoardItem = event.target as GridBoardItem;
-				gridItem.setStyle("backgroundColor", playerManager.currentPlayer.color);
-				gridItem.itemClickEnabled = false;
-				
-				// Mark the territory owner in the model
-				var territory:Territory = model[event.rowIndex][event.columnIndex] as Territory;
-				territory.owner = playerManager.currentPlayer;
-				
-				// Update the score of the current player
-				playerManager.currentPlayer.score = model.getScore(playerManager.currentPlayer);
-				
-				// Change to the next player
-				playerManager.next();
-			}
-		]]>
-	</mx:Script>
+	<mx:Script source="GameLogic.as"/>
 	
 	<mx:Panel title="Territories" 
 		height="100%" width="90%" layout="horizontal">
