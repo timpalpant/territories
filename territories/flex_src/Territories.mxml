@@ -9,32 +9,36 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
+			import us.palpant.games.territories.Territory;
+			import us.palpant.games.territories.TerritoriesModel;
 			import mx.events.ListEvent;
 			
 			import us.palpant.games.players.PlayerManager;
-			import us.palpant.games.territories.TerritoryManager;
 			import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 			import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 		
 			[Bindable] private var playerManager:PlayerManager;
-			[Bindable] private var territoryManager:TerritoryManager;
+			[Bindable] private var model:TerritoriesModel;
 		
 			private function onCreationComplete():void {
 				playerManager = new PlayerManager(4);
 				playerManager.showWindow();
 				
-				territoryManager = new TerritoryManager();
+				model = new TerritoriesModel(10, 10);
 			}
 			
 			private function onGridItemClick(event:ListEvent):void {
-				// Change the board to reflect the color of the owner and disable changing
+				// Change the board to reflect the color of the owner and disable item click
 				var gridItem:GridBoardItem = event.target as GridBoardItem;
 				gridItem.setStyle("backgroundColor", playerManager.currentPlayer.color);
 				gridItem.itemClickEnabled = false;
 				
 				// Mark the territory owner in the model
-				territoryManager.setSelected(event.rowIndex, event.columnIndex, playerManager.currentPlayer);
+				var territory:Territory = model[event.rowIndex][event.columnIndex] as Territory;
+				territory.owner = playerManager.currentPlayer;
+				
+				// Update the score of the current player
+				playerManager.currentPlayer.score = model.getScore(playerManager.currentPlayer);
 				
 				// Change to the next player
 				playerManager.next();
