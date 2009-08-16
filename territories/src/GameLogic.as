@@ -24,7 +24,7 @@ private function onCreationComplete():void {
 	playerManager.addEventListener(Event.CLOSE, onPlayerSetUp);
 	playerManager.showWindow();
 	
-	model = new TerritoriesModel(10, 10);
+	model = new TerritoriesModel(gameBoard.rows, gameBoard.columns);
 	
 	computerAI = new RandomAI();
 }
