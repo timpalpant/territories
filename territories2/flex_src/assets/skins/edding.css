@@ -1,0 +1,514 @@
+@font-face {
+    fontFamily: eddi;
+    src: url("IllegalEdding.ttf");
+    fontWeight: normal;
+}  
+
+@font-face {
+    fontFamily: luna;
+    src: url("homework normal.TTF");
+    fontWeight: normal;
+}   
+Application {
+	backgroundColor: #333333;
+	color: #000000;
+	backgroundAlpha: 1;
+}
+
+global {
+	themeColor: #FFFFFF;
+	backgroundAlpha: 0;
+	borderThickness: 0;
+	fontFamily: luna;
+	fontWeight: normal;
+	fontSize: 22;
+ 
+ }
+
+Canvas {
+	borderSkin: Embed(source="edding.swf", symbol="canvas 2");
+	focusSkin: Embed(source="edding.swf", symbol="canvas focus");
+	
+}
+
+TextInput {
+	borderSkin: Embed(source="edding.swf", symbol="canvas 2");
+	focusSkin: Embed(source="edding.swf", symbol="canvas focus");
+	textIndent: 10;
+}
+TextArea {
+	borderSkin: Embed(source="edding.swf", symbol="canvas 2");
+	focusSkin: Embed(source="edding.swf", symbol="canvas focus"); 
+	textIndent: 10;
+}
+.canvasopen {
+		borderSkin: Embed(source="edding.swf", symbol="canvas 1");
+} 
+ 
+
+/*
+//------------------------------
+//  AccordionHeader
+//------------------------------
+*/
+AccordionHeader
+{
+
+	disabledSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	downSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	overSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	selectedDisabledSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	selectedDownSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	selectedOverSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	selectedUpSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	upSkin: Embed(source="edding.swf", symbol="AccordionHeader_upSkin");
+	fontStyle:normal;
+	fontFamily: eddi;
+    fontWeight: normal;
+	fontSize:18;
+}
+TextArea {
+	backgroundAlpha:0;
+}
+
+/*
+//------------------------------
+//  Application
+//------------------------------
+*/
+
+
+/*
+//------------------------------
+//  Button
+//------------------------------
+*/
+Button
+{
+	disabledSkin: Embed(source="edding.swf", symbol="Button_disabledSkin");
+	downSkin: Embed(source="edding.swf", symbol="Button_downSkin");
+	overSkin: Embed(source="edding.swf", symbol="Button_overSkin");
+	upSkin: Embed(source="edding.swf", symbol="Button_upSkin");
+	textRollOverColor: #000000;
+	textSelectedColor: #000000;
+	fontStyle:normal;
+	fontFamily: eddi;
+    fontWeight: normal;
+	fontSize:18;
+	fontAntiAliasType: advanced;
+    fontSharpness: 100;
+    fontgridFitType: subpixel;
+    flashType: true;
+    letterSpacing: 3;
+
+
+}
+
+/* 
+//------------------------------ 
+//  ButtonBar 
+//------------------------------ 
+*/ 
+
+ButtonBar 
+{ 
+        buttonStyleName: "buttonBarButton"; 
+        firstButtonStyleName: "firstButtonBarButton"; 
+        lastButtonStyleName: "lastButtonBarButton";
+}
+
+ToggleButtonBar 
+{ 
+        buttonStyleName: "buttonBarButton"; 
+        firstButtonStyleName: "firstButtonBarButton"; 
+        lastButtonStyleName: "lastButtonBarButton";
+}
+
+/* 
+//------------------------------ 
+//  ButtonBarButtons 
+//------------------------------ 
+*/ 
+
+.firstButtonBarButton 
+{ 
+        disabledSkin: Embed(source="edding.swf", symbol="ButtonBar_firstDisabledSkin"); 
+        downSkin: Embed(source="edding.swf", symbol="ButtonBar_firstDownSkin"); 
+        overSkin: Embed(source="edding.swf", symbol="ButtonBar_firstOverSkin"); 
+        selectedDisabledSkin: Embed(source="edding.swf", symbol="ButtonBar_firstDisabledSkin"); 
+        selectedDownSkin: Embed(source="edding.swf", symbol="ButtonBar_firstSelectedUpSkin"); 
+        selectedOverSkin: Embed(source="edding.swf", symbol="ButtonBar_firstSelectedUpSkin");
+        selectedUpSkin: Embed(source="edding.swf", symbol="ButtonBar_firstSelectedUpSkin");
+        upSkin: Embed(source="edding.swf", symbol="ButtonBar_firstUpSkin"); 
+}
+.buttonBarButton 
+{ 
+        disabledSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonDisabledSkin"); 
+        downSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonDownSkin"); 
+        overSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonOverSkin"); 
+        selectedDisabledSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonDisabledSkin"); 
+        selectedDownSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonSelectedUpSkin"); 
+        selectedOverSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonSelectedUpSkin");
+        selectedUpSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonSelectedUpSkin");
+        upSkin: Embed(source="edding.swf", symbol="ButtonBar_buttonUpSkin"); 
+}
+
+.lastButtonBarButton 
+{ 
+        disabledSkin: Embed(source="edding.swf", symbol="ButtonBar_lastDisabledSkin"); 
+        downSkin: Embed(source="edding.swf", symbol="ButtonBar_lastDownSkin"); 
+        overSkin: Embed(source="edding.swf", symbol="ButtonBar_lastOverSkin"); 
+        selectedDisabledSkin: Embed(source="edding.swf", symbol="ButtonBar_lastDisabledSkin"); 
+        selectedDownSkin: Embed(source="edding.swf", symbol="ButtonBar_lastSelectedUpSkin"); 
+        selectedOverSkin: Embed(source="edding.swf", symbol="ButtonBar_lastSelectedUpSkin");
+        selectedUpSkin: Embed(source="edding.swf", symbol="ButtonBar_lastSelectedUpSkin");
+        upSkin: Embed(source="edding.swf", symbol="ButtonBar_lastUpSkin"); 
+}
+
+/*
+//------------------------------
+//  CheckBox
+//------------------------------
+*/
+CheckBox
+{
+	disabledIcon: Embed(source="edding.swf", symbol="CheckBox_disabledIcon");
+	downIcon: Embed(source="edding.swf", symbol="CheckBox_upIcon");
+	overIcon: Embed(source="edding.swf", symbol="CheckBox_upIcon");
+	selectedDisabledIcon: Embed(source="edding.swf", symbol="CheckBox_selectedDisabledIcon");
+	selectedDownIcon: Embed(source="edding.swf", symbol="CheckBox_selectedUpIcon");
+	selectedOverIcon: Embed(source="edding.swf", symbol="CheckBox_selectedUpIcon");
+	selectedUpIcon: Embed(source="edding.swf", symbol="CheckBox_selectedUpIcon");
+	upIcon: Embed(source="edding.swf", symbol="CheckBox_upIcon");
+}		
+
+Canvas {
+	backgroundColor: #FFFFFF;
+	
+}
+/*
+//------------------------------
+//  ComboBox
+//------------------------------
+*/
+ComboBox
+{
+
+	disabledSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_disabledSkin");
+	downSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");
+	overSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");
+	upSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_upSkin");
+	dropDownStyleName: "myComboBoxDropDowns";
+	backgroundAlpha: 0;
+	fontWeight: normal;  
+}
+
+.myComboBoxDropDowns {
+  /* overSkin: Embed(source="edding.swf", symbol="Button_downSkin") ;
+  */
+  backgroundAlpha: 0;
+}
+
+
+/*
+//------------------------------
+//  DateChooser
+//------------------------------
+*/
+DateChooser {
+	
+	nextMonthDisabledSkin: Embed(source="edding.swf", symbol="DateChooser_nextMonthUpSkin");
+	nextMonthDownSkin: Embed(source="edding.swf", symbol="DateChooser_nextMonthUpSkin");
+	nextMonthOverSkin: Embed(source="edding.swf", symbol="DateChooser_nextMonthUpSkin");
+	nextMonthUpSkin: Embed(source="edding.swf", symbol="DateChooser_nextMonthUpSkin");
+	prevMonthDisabledSkin: Embed(source="edding.swf", symbol="DateChooser_prevMonthUpSkin");
+	prevMonthDownSkin: Embed(source="edding.swf", symbol="DateChooser_prevMonthUpSkin");
+	prevMonthOverSkin: Embed(source="edding.swf", symbol="DateChooser_prevMonthUpSkin");
+	prevMonthUpSkin: Embed(source="edding.swf", symbol="DateChooser_prevMonthUpSkin");
+	todayIndicatorSkin: Embed(source="edding.swf", symbol="DateChooser_todayIndicatorSkin");	
+	rollOverIndicatorSkin: Embed(source="edding.swf", symbol="DateChooser_rollOverIndicatorSkin");
+	selectionIndicatorSkin: Embed(source="edding.swf", symbol="DateChooser_selectionIndicatorSkin");
+	
+	todayStyleName: Black;
+	weekDayStyleName: normal;
+	fontSize: 45;
+	fontWeight: normal;
+	fontFamily: eddi;
+	borderColor: #FFFFFF; 
+	headerColors: #FFFFFF, #FFFFFF;
+	headerStyleName: "dateheader";
+}
+
+.dateheader {
+	fontWeight: normal;
+	fontFamily: eddi;
+}
+
+
+
+
+/*
+//------------------------------
+//  DividedBox
+//------------------------------
+*/
+HDividedBox
+{
+	dividerSkin: Embed(source="edding.swf",symbol="myDividedBox_dividerSkin");
+	horizontalCursor: Embed(source="edding.swf",symbol="DividedBox_horizontalCursor");
+	verticalCursor: Embed(source="edding.swf",symbol="DividedBox_verticalCursor");
+	horizontalGap: 25; 
+}
+
+VDividedBox
+{
+	dividerSkin: Embed(source="edding.swf",symbol="myDividedBox_dividerSkin");
+	horizontalCursor: Embed(source="edding.swf",symbol="DividedBox_horizontalCursor");
+	verticalCursor: Embed(source="edding.swf",symbol="DividedBox_verticalCursor");
+	verticalGap: 25;
+}
+/*
+//------------------------------
+//  FormItem
+//------------------------------
+*/
+FormItem
+{
+	indicatorSkin: Embed(source="edding.swf",symbol="FormItem_indicatorSkin");  
+}
+
+
+
+/*
+//------------------------------
+//  Menu
+//------------------------------
+*/
+Menu
+{
+	branchIcon: Embed(source="edding.swf",symbol="Menu_branchIcon");
+	branchDisabledIcon: Embed(source="edding.swf",symbol="Menu_branchDisabledIcon");
+	checkIcon: Embed(source="edding.swf",symbol="Menu_checkIcon");
+	checkDisabledIcon: Embed(source="edding.swf",symbol="Menu_checkDisabledIcon");
+	radioIcon: Embed(source="edding.swf",symbol="Menu_radioIcon");
+	radioDisabledIcon: Embed(source="edding.swf",symbol="Menu_radioDisabledIcon");
+	separatorSkin: Embed(source="edding.swf",symbol="Menu_separatorSkin");
+}
+
+
+/*
+//------------------------------
+//  NumericStepper 
+//------------------------------
+*/
+
+/*
+//------------------------------
+//  Panel
+//------------------------------
+*/
+Panel
+{
+
+	borderSkin: Embed(source="edding.swf", symbol="Panel_borderSkin");
+	titleBackgroundSkin: Embed(source="empty.swf", symbol="Panel_titleBackgroundSkin");
+	 borderThicknessTop: 6;
+   titleStyleName: "mypanelTitle";
+
+}
+
+
+
+.mypanelTitle {
+	textIndent: 14;
+   fontFamily: eddi;
+    fontWeight: normal;
+	fontSize:30;
+	letterSpacing: 3;
+	
+   	fontWeight: normal;	
+}
+/*
+//------------------------------
+//  Panel ControlBar
+//------------------------------
+*/
+ControlBar
+{
+	borderSkin: Embed(source="edding.swf", symbol="Panel_controlBarBackgroundSkin");
+	horizontalAlign: center;
+	paddingBottom: 14;
+}
+        
+/*
+//------------------------------
+//  PopUpButton
+//------------------------------
+*/
+PopUpButton
+{
+	disabledSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_disabledSkin");
+	downSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");
+	overSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");	
+	popUpDownSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");
+	popUpOverSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_overSkin");
+	upSkin: Embed(source="edding.swf", symbol="ComboBoxArrow_upSkin");
+	fontWeight: normal;
+}
+
+
+
+/*
+//------------------------------
+//  RadioButton
+//------------------------------
+*/
+RadioButton
+{
+
+	disabledIcon: Embed(source="edding.swf", symbol="RadioButton_disabledIcon");
+	downIcon: Embed(source="edding.swf", symbol="RadioButton_upIcon");
+	overIcon: Embed(source="edding.swf", symbol="RadioButton_upIcon");
+	selectedDisabledIcon: Embed(source="edding.swf", symbol="RadioButtonSelected_disabledIcon");
+	selectedDownIcon: Embed(source="edding.swf", symbol="RadioButtonSelected_upIcon");
+	selectedOverIcon: Embed(source="edding.swf", symbol="RadioButtonSelected_upIcon");
+	selectedUpIcon: Embed(source="edding.swf", symbol="RadioButtonSelected_upIcon");
+	upIcon: Embed(source="edding.swf", symbol="RadioButton_upIcon");
+
+}
+
+/*
+//------------------------------
+//  HorizontalScrollBar
+//------------------------------
+*/
+HScrollBar
+{
+	
+	downArrowDisabledSkin: Embed(source="edding.swf", symbol="HScrollArrowRight_upSkin");
+	downArrowDownSkin: Embed(source="edding.swf", symbol="HScrollArrowRight_upSkin");
+	downArrowOverSkin: Embed(source="edding.swf", symbol="HScrollArrowRight_upSkin");
+	downArrowUpSkin: Embed(source="edding.swf", symbol="HScrollArrowRight_upSkin");
+	thumbDownSkin: Embed(source="edding.swf", symbol="HScrollThumb_upSkin");
+	thumbIcon: Embed(source="edding.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="edding.swf", symbol="HScrollThumb_upSkin");
+	thumbUpSkin: Embed(source="edding.swf", symbol="HScrollThumb_upSkin");
+	trackSkin: Embed(source="edding.swf", symbol="HScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="edding.swf", symbol="HScrollArrowLeft_upSkin");
+	upArrowDownSkin: Embed(source="edding.swf", symbol="HScrollArrowLeft_upSkin");
+	upArrowOverSkin: Embed(source="edding.swf", symbol="HScrollArrowLeft_upSkin");
+	upArrowUpSkin: Embed(source="edding.swf", symbol="HScrollArrowLeft_upSkin");
+
+}
+
+
+/*
+//------------------------------
+//  VerticalScrollBar
+//------------------------------
+*/
+VScrollBar
+{
+
+	downArrowDisabledSkin: Embed(source="edding.swf", symbol="ScrollArrowDown_upSkin");
+	downArrowDownSkin: Embed(source="edding.swf", symbol="ScrollArrowDown_upSkin");
+	downArrowOverSkin: Embed(source="edding.swf", symbol="ScrollArrowDown_upSkin");
+	downArrowUpSkin: Embed(source="edding.swf", symbol="ScrollArrowDown_upSkin");
+	thumbDownSkin: Embed(source="edding.swf", symbol="ScrollThumb_upSkin");
+	thumbIcon: Embed(source="edding.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="edding.swf", symbol="ScrollThumb_upSkin");
+	thumbUpSkin: Embed(source="edding.swf", symbol="ScrollThumb_upSkin");
+	trackSkin: Embed(source="edding.swf", symbol="ScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="edding.swf", symbol="ScrollArrowUp_upSkin");
+	upArrowDownSkin: Embed(source="edding.swf", symbol="ScrollArrowUp_upSkin");
+	upArrowOverSkin: Embed(source="edding.swf", symbol="ScrollArrowUp_upSkin");
+	upArrowUpSkin: Embed(source="edding.swf", symbol="ScrollArrowUp_upSkin");
+
+}
+
+/*
+//------------------------------
+//  Slider
+//------------------------------
+*/
+Slider
+{
+	thumbDisabledSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbDownSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbOverSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbUpSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	trackSkin: Embed(source="edding.swf", symbol="SliderTrack_Skin");
+}
+
+HSlider
+{
+	thumbDisabledSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbDownSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbOverSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbUpSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	trackSkin: Embed(source="edding.swf", symbol="SliderTrack_Skin");
+}
+
+VSlider
+{
+	thumbDisabledSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbDownSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbOverSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	thumbUpSkin: Embed(source="edding.swf", symbol="SliderThumb_upSkin");
+	trackSkin: Embed(source="edding.swf", symbol="SliderTrack_Skin");
+}
+
+/*
+//------------------------------
+//  Tab
+//------------------------------
+*/
+TabBar
+{
+	firstButtonStyleName: "tabStyle";
+	tabStyleName: "tabStyle";
+	lastButtonStyleName: "tabStyle";
+	selectedTabTextStyleName: "tabStyle";
+}
+
+.tabStyle {
+	disabledSkin: Embed(source="edding.swf", symbol="Tab_disabledSkin");
+	downSkin: Embed(source="edding.swf", symbol="Tab_downSkin");
+	overSkin: Embed(source="edding.swf", symbol="Tab_downSkin");
+	selectedDisabledSkin: Embed(source="edding.swf", symbol="TabSelected_disabledSkin");
+	selectedDownSkin: Embed(source="edding.swf", symbol="TabSelected_upSkin");
+	selectedOverSkin: Embed(source="edding.swf", symbol="TabSelected_upSkin");
+	selectedUpSkin: Embed(source="edding.swf", symbol="TabSelected_upSkin");
+	upSkin: Embed(source="edding.swf", symbol="Tab_upSkin");
+	fontWeight: normal;
+
+}
+
+/*
+//------------------------------
+//  ToolTip
+//------------------------------
+*/
+ToolTip
+{
+
+	borderSkin: Embed(source="edding.swf", symbol="ToolTip_borderSkin");
+	fontSize: 40;
+}
+
+/*
+//------------------------------
+//  Tree
+//------------------------------
+*/
+Tree
+{
+	defaultLeafIcon: Embed(source="edding.swf",symbol="Tree_defaultLeafIcon");
+	disclosureClosedIcon: Embed(source="edding.swf",symbol="Tree_disclosureClosedIcon");
+	disclosureOpenIcon: Embed(source="edding.swf",symbol="Tree_disclosureOpenIcon");  
+	folderClosedIcon: Embed(source="edding.swf",symbol="Tree_folderClosedIcon");
+	folderOpenIcon: Embed(source="edding.swf",symbol="Tree_folderOpenIcon");
+	
+}
+
+

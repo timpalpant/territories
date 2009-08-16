@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Visual representation of the PlayerManager
+-->
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:local="us.palpant.games.players.playerManagerClasses.*"
+	layout="vertical" width="50%" height="50%" 
+	resizeEffect="{resizeEffect}" moveEffect="{moveEffect}"
+	title="Add Players" showCloseButton="true"
+	creationComplete="addPlayer()">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+		
+			import us.palpant.games.players.PlayerManager;
+			import us.palpant.games.players.Player;
+			
+			import mx.managers.PopUpManager;
+			
+			/**
+			 * Reference to the PlayerManager which this window visually represents
+			 */
+			public var playerManager:PlayerManager;
+		
+			/** 
+			 * Visually add a player to the manager
+			 */
+			private function addPlayer():void {
+				// Show the visual representation of the player
+				var playerManagerEntry:PlayerManagerEntry = new PlayerManagerEntry();
+				playerManagerEntry.player = playerManager.add(Player.HUMAN);
+				
+				// Add the player to the playersBox and resize the window
+				playersBox.addChild(playerManagerEntry);
+				PopUpManager.centerPopUp(this);
+				
+				// Handler for maximum number of players
+				if(playerManager.players.length >= playerManager.maxPlayers) {
+					addPlayerBtn.enabled = false;
+					maxPlayersLabel.visible = true;
+				}
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Resize id="resizeEffect"/>
+	<mx:Move id="moveEffect"/>
+	
+	<mx:VBox id="playersBox" resizeEffect="{resizeEffect}"/>
+	
+	<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
+		<mx:Label id="maxPlayersLabel" text="MAXIMUM PLAYERS REACHED" color="#DD0000" visible="false"/>
+		<mx:LinkButton id="addPlayerBtn" label="Add Player" icon="@Embed(source='/assets/images/plus.png')"
+			click="addPlayer()"/>
+	</mx:HBox>
+	
+	<mx:ApplicationControlBar id="applicationControlBar" horizontalAlign="right">
+		<mx:Button id="applicationCloseButton" label="Close"
+			click="dispatchEvent(new CloseEvent(CloseEvent.CLOSE))"/>
+	</mx:ApplicationControlBar>
+	
+</mx:TitleWindow>
