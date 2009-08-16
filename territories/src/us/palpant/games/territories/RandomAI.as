@@ -12,8 +12,8 @@ package us.palpant.games.territories {
 		 */
 		public function select(model:TerritoriesModel):Territory {
 			// Randomly select a grid index
-			var randomRow:uint = Math.round(Math.random() * (model.length-1));
-			var randomColumn:uint = Math.round(Math.random() * ((model[0] as Array).length-1));
+			var randomRow:uint = Math.floor(Math.random() * model.length);
+			var randomColumn:uint = Math.floor(Math.random() * (model[0] as Array).length);
 			var potentialSelection:Territory = model[randomRow][randomColumn] as Territory;
 			
 			// If that index is not selected, return it
