@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:boards="us.palpant.games.boards.*"
+	xmlns:players="us.palpant.games.players.*"
+	layout="horizontal" pageTitle="Ryan\'s Territories Game" 
+	viewSourceURL="srcview/index.html"
+	creationComplete="onCreationComplete()">
+	
+	<mx:Style source="assets/styles/main.css"/>
+	
+	<mx:Script source="GameLogic.as"/>
+	
+	<mx:Resize id="resizeEffect"/>
+	
+	<mx:Panel title="Game Board" 
+		height="100%" layout="horizontal">
+
+		<boards:GridBoard id="gameBoard" rows="10" columns="10"
+			height="100%" width="{height}"
+			itemClick="onGridItemClick(event)"/>
+			
+	</mx:Panel>
+	
+	<mx:VBox width="300">
+		<mx:Panel title="Players" width="100%"
+			layout="vertical" horizontalAlign="center">
+	
+			<players:PlayerList players="{playerManager.players}" 
+				currentPlayer="{playerManager.currentPlayer}"/>
+				
+		</mx:Panel>
+		
+		<mx:Panel title="AI" width="100%"
+			layout="vertical" resizeEffect="{resizeEffect}">
+	
+			<mx:HBox verticalAlign="middle">
+				<mx:Label text="Select:"/>
+				<mx:ComboBox id="AISelector" 
+					dataProvider="{computerAIs}" labelField="name"
+					selectedItem="{currentAI}"
+					change="onAIChange(event)"/>
+			</mx:HBox>
+				
+			<mx:HBox verticalAlign="middle" 
+				visible="{AISelector.selectedItem == blockerAI}" 
+				includeInLayout="{AISelector.selectedItem == blockerAI}">
+				
+				<mx:Label text="Target:"/>
+				<mx:ComboBox id="crusherTargetPlayer" 
+					dataProvider="{playerManager.players}" labelField="name"
+					change="onTargetChange(event)"/>
+					
+			</mx:HBox>
+	
+		</mx:Panel>
+		
+		<mx:Panel title="Game Options" width="100%"
+			layout="vertical" horizontalAlign="center">
+			
+			<mx:LinkButton label="New Game" click="newGame()"/>
+			
+		</mx:Panel>
+	</mx:VBox>
+	
+</mx:Application>

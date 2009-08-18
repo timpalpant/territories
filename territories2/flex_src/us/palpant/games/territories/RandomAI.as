@@ -1,8 +1,11 @@
 package us.palpant.games.territories {
 
 	public class RandomAI implements ITerritoriesAI {
+		
 		public function RandomAI() {
 		}
+		
+		public function get name():String { return "Random"; }
 
 		/**
 		 * Shiitttyy AI example 
