@@ -1,5 +1,6 @@
-package us.palpant.games.territories {
+package us.palpant.games.territories.ai {
 	import us.palpant.games.players.Player;
+	import us.palpant.games.territories.*;
 	
 	public class OffensiveAI implements ITerritoriesAI {
 		

@@ -8,12 +8,15 @@ import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 import us.palpant.games.players.Player;
 import us.palpant.games.players.PlayerManager;
-import us.palpant.games.territories.DefensiveAI;
-import us.palpant.games.territories.ITerritoriesAI;
-import us.palpant.games.territories.RandomAI;
+
+import us.palpant.games.territories.ai.ITerritoriesAI;
+import us.palpant.games.territories.ai.RandomAI;
+import us.palpant.games.territories.ai.OffensiveAI;
+import us.palpant.games.territories.ai.DefensiveAI;
+
 import us.palpant.games.territories.TerritoriesModel;
 import us.palpant.games.territories.Territory;
-import us.palpant.games.territories.OffensiveAI;
+
 
 // Player manager and game model
 [Bindable] private var playerManager:PlayerManager;
@@ -100,7 +103,6 @@ private function newGame():void {
 	
 	// Restart the game
 	onCreationComplete();
-
 }
 
 private function endGame():void {
