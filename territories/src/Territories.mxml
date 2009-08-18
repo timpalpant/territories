@@ -43,16 +43,6 @@
 					change="onAIChange(event)"/>
 			</mx:HBox>
 				
-			<mx:HBox verticalAlign="middle" 
-				visible="{AISelector.selectedItem == blockerAI}" 
-				includeInLayout="{AISelector.selectedItem == blockerAI}">
-				
-				<mx:Label text="Target:"/>
-				<mx:ComboBox id="crusherTargetPlayer" 
-					dataProvider="{playerManager.players}" labelField="name"
-					change="onTargetChange(event)"/>		
-			</mx:HBox>
-	
 		</mx:Panel>
 		
 		<mx:Panel width="100%" headerHeight="10" 

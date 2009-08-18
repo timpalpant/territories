@@ -8,42 +8,46 @@ import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 import us.palpant.games.players.Player;
 import us.palpant.games.players.PlayerManager;
-import us.palpant.games.territories.BlockerAI;
+import us.palpant.games.territories.DefensiveAI;
 import us.palpant.games.territories.ITerritoriesAI;
 import us.palpant.games.territories.RandomAI;
 import us.palpant.games.territories.TerritoriesModel;
 import us.palpant.games.territories.Territory;
+import us.palpant.games.territories.OffensiveAI;
 
-
+// Player manager and game model
 [Bindable] private var playerManager:PlayerManager;
 [Bindable] private var model:TerritoriesModel;
 
-[Bindable] private var randomAI:RandomAI;
-[Bindable] private var blockerAI:BlockerAI;
-
+// AIs
 [Bindable] private var computerAIs:ArrayCollection;
 [Bindable] private var currentAI:ITerritoriesAI;
 
 
 private function onCreationComplete():void {
+	// Set up players
 	playerManager = new PlayerManager(4);
 	playerManager.addEventListener(Event.CLOSE, onPlayerSetUp);
 	playerManager.showWindow();
 	
+	// Set up the model
 	model = new TerritoriesModel(gameBoard.rows, gameBoard.columns);
 	
-	
-	blockerAI = new BlockerAI();
-	randomAI = new RandomAI();
+	// Set up AIs
+	var defensiveAI:ITerritoriesAI = new DefensiveAI();
+	var randomAI:ITerritoriesAI = new RandomAI();
+	var offensiveAI:ITerritoriesAI = new OffensiveAI();
 
 	computerAIs = new ArrayCollection();
-	computerAIs.addItem(blockerAI);
+	computerAIs.addItem(defensiveAI);
 	computerAIs.addItem(randomAI);
+	computerAIs.addItem(offensiveAI);
 	
-	currentAI = blockerAI;
+	currentAI = offensiveAI;
 }
 
 private function onPlayerSetUp(event:Event):void {
+	// If the first player is a computer, move
 	if(playerManager.currentPlayer.type == Player.COMPUTER)
 		computerMove();
 }
@@ -52,13 +56,9 @@ private function onAIChange(event:ListEvent):void {
 	currentAI = event.currentTarget.selectedItem;
 }
 
-private function onTargetChange(event:Event):void {
-	blockerAI.target = event.currentTarget.selectedLabel;
-}
-
 private function computerMove():void {
-	var computerSelection:Territory = currentAI.select(model);
-	
+	var computerSelection:Territory = currentAI.select(model, playerManager.currentPlayer);
+
 	var selectedItem:GridBoardItem = (gameBoard.getChildAt(computerSelection.rowIndex) as GridBoardRow).getChildAt(computerSelection.columnIndex) as GridBoardItem;
 	selectedItem.dispatchSelectionEvent();
 }
@@ -114,5 +114,6 @@ private function endGame():void {
 		}
 	}
 	
-	Alert.show(winner.name + " wins!", "Game over");
+	if(winner)
+		Alert.show(winner.name + " wins!", "Game over");
 }

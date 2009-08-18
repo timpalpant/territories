@@ -40,6 +40,30 @@ package us.palpant.games.territories {
 		}
 		
 		/**
+		 * Gets the score of a player, territory, or location on the board
+		 * (or, please implement overloading in AS4)
+		 * @param args
+		 * @return 
+		 * 
+		 */
+		public function getScore(...args):uint {
+			var n:uint = args.length;
+			
+			if(n == 1) {
+				if(args[0] is Player)
+					return getPlayerScore(args[0]);
+				
+				if(args[0] is Territory)
+					return getTerritoryScore(args[0]);
+			}
+			
+			if(n == 2 && (args[0] is uint) && (args[1] is uint))
+				return getIndexScore(args[0], args[1]);
+			
+			return 0;
+		}
+		
+		/**
 		 * Computes the score/value of an indexed location (territory)
 		 * @param row
 		 * @param column
@@ -96,29 +120,31 @@ package us.palpant.games.territories {
 		}
 		
 		/**
-		 * Gets the score of a player, territory, or location on the board
-		 * (please implement overloading in AS4)
-		 * @param args
-		 * @return 
+		 * Gets the potential change in score for a territory
+		 * if the player were to select it 
+		 * @param territory the hypothetical selection
+		 * @return delta-score for the player
 		 * 
 		 */
-		public function getScore(...args):uint {
-			var n:uint = args.length;
+		public function getPotentialDelta(territory:Territory, player:Player):uint {
+			// Don't allow changes to already selected territories
+			if(territory.selected)
+				return 0;
 			
-			if(n == 1) {
-				if(args[0] is Player)
-					return getPlayerScore(args[0]);
-				
-				if(args[0] is Territory)
-					return getTerritoryScore(args[0]);
-			}
+			var currentScore:uint = getPlayerScore(player);
 			
-			if(n == 2 && (args[0] is uint) && (args[1] is uint))
-				return getIndexScore(args[0], args[1]);
+			territory.owner = player;
+			var potentialScore:uint = getPlayerScore(player);
+			territory.owner = null;
 			
-			return 0;
+			return potentialScore - currentScore;
 		}
 		
+		/**
+		 * Represents whether or not all territories are selected 
+		 * @return whether or not the model is full
+		 * 
+		 */
 		public function get full():Boolean {
 			for each(var row:Array in this) {
 				for each(var territory:Territory in row) {
