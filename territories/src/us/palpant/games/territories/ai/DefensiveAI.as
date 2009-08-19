@@ -11,6 +11,8 @@ package us.palpant.games.territories.ai {
 		public function select(model:TerritoriesModel, player:Player):Territory {
 			
 			var potentialSelections:Array = new Array();
+			var highestDelta:uint = 0;
+			var deltaScore:uint;
 			
 			for each(var row:Array in model) {
 				for each(var territory:Territory in row) {
@@ -20,22 +22,61 @@ package us.palpant.games.territories.ai {
 						if(model.contains(territory.rowIndex+1, territory.columnIndex) && 
 							!(model[territory.rowIndex+1][territory.columnIndex] as Territory).selected) {
 							
-							potentialSelections.push(model[territory.rowIndex+1][territory.columnIndex]);
-							
+							var down:Territory = model[territory.rowIndex+1][territory.columnIndex];
+							deltaScore = model.getPotentialDelta(down, territory.owner);
+						
+							if(deltaScore > highestDelta) {
+								highestDelta = deltaScore;
+								
+								potentialSelections = new Array();
+								potentialSelections.push(down);
+							} else if(deltaScore == highestDelta) {
+								potentialSelections.push(down);
+							}
 						} else if(model.contains(territory.rowIndex-1, territory.columnIndex) && 
 							!(model[territory.rowIndex-1][territory.columnIndex] as Territory).selected) {
 							
-							potentialSelections.push(model[territory.rowIndex-1][territory.columnIndex]);
+							var up:Territory = model[territory.rowIndex-1][territory.columnIndex];
+							deltaScore = model.getPotentialDelta(up, territory.owner);
+						
+							if(deltaScore > highestDelta) {
+								highestDelta = deltaScore;
+								
+								potentialSelections = new Array();
+								potentialSelections.push(up);
+							} else if(deltaScore == highestDelta) {
+								potentialSelections.push(up);
+							}
 							
 						} else if(model.contains(territory.rowIndex, territory.columnIndex+1) && 
 							!(model[territory.rowIndex][territory.columnIndex+1] as Territory).selected) {
 							
-							potentialSelections.push(model[territory.rowIndex][territory.columnIndex+1]);
+							var right:Territory = model[territory.rowIndex][territory.columnIndex+1];
+							deltaScore = model.getPotentialDelta(right, territory.owner);
+						
+							if(deltaScore > highestDelta) {
+								highestDelta = deltaScore;
+								
+								potentialSelections = new Array();
+								potentialSelections.push(right);
+							} else if(deltaScore == highestDelta) {
+								potentialSelections.push(right);
+							}
 							
 						} else if(model.contains(territory.rowIndex, territory.columnIndex-1) && 
 							!(model[territory.rowIndex][territory.columnIndex-1] as Territory).selected) {
 							
-							potentialSelections.push(model[territory.rowIndex][territory.columnIndex-1]);
+							var left:Territory = model[territory.rowIndex][territory.columnIndex-1];
+							deltaScore = model.getPotentialDelta(left, territory.owner);
+						
+							if(deltaScore > highestDelta) {
+								highestDelta = deltaScore;
+								
+								potentialSelections = new Array();
+								potentialSelections.push(left);
+							} else if(deltaScore == highestDelta) {
+								potentialSelections.push(left);
+							}
 						}
 					}
 					

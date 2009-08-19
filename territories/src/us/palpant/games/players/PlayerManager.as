@@ -9,9 +9,7 @@ package us.palpant.games.players {
 	import mx.managers.PopUpManager;
 	
 	import us.palpant.games.players.playerManagerClasses.PlayerManagerWindow;
-	import us.palpant.games.territories.ai.DefensiveAI;
-	import us.palpant.games.territories.ai.OffensiveAI;
-	import us.palpant.games.territories.ai.RandomAI;
+	import us.palpant.games.territories.ai.*;
 	import us.palpant.utils.PseudoRandomColor;
 	
 	/**
@@ -79,6 +77,7 @@ package us.palpant.games.players {
 			_AIs.addItem(new RandomAI());
 			_AIs.addItem(new OffensiveAI());
 			_AIs.addItem(new DefensiveAI());
+			_AIs.addItem(new ComboAI());
 		}
 		
 		/**

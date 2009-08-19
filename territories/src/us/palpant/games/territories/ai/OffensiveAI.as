@@ -10,7 +10,7 @@ package us.palpant.games.territories.ai {
 
 		public function select(model:TerritoriesModel, player:Player):Territory {
 			
-			var highestPotential:Territory;
+			var potentialSelections:Array = new Array();
 			var highestDelta:uint = 0;
 			
 			for each(var row:Array in model) {
@@ -20,19 +20,24 @@ package us.palpant.games.territories.ai {
 						var deltaScore:uint = model.getPotentialDelta(territory, player);
 						
 						if(deltaScore > highestDelta) {
-							highestPotential = territory;
 							highestDelta = deltaScore;
+							
+							potentialSelections = new Array();
+							potentialSelections.push(territory);
+						} else if(deltaScore == highestDelta) {
+							potentialSelections.push(territory);
 						}
 					}
 					
 				}
 			}
 			
-			if(highestPotential)
-				return highestPotential;
-			else
+			if(potentialSelections.length > 0) {
+				var random:uint = Math.floor(Math.random() * potentialSelections.length);
+				return potentialSelections[random];
+			} else {
 				return totalRandom(model);
-	
+			}
 		}
 		
 		private function totalRandom(model:TerritoriesModel):Territory {
