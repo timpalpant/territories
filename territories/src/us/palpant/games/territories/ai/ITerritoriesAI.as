@@ -1,5 +1,5 @@
 package us.palpant.games.territories.ai {
-	import us.palpant.games.players.Player;
+	import us.palpant.games.players.PlayerManager;
 	import us.palpant.games.territories.*;
 
 	public interface ITerritoriesAI {
@@ -14,11 +14,11 @@ package us.palpant.games.territories.ai {
 		/**
 		 * Determine a selection on the board 
 		 * @param model the TerritoriesModel to choose on
-		 * @param player the current Player
+		 * @param playerManager the manager of players
 		 * @return the selected Territory
 		 * 
 		 */
-		function select(model:TerritoriesModel, player:Player):Territory;
+		function select(model:TerritoriesModel, playerManager:PlayerManager):Territory;
 		
 	}
 }

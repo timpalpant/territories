@@ -51,11 +51,11 @@ package us.palpant.games.players {
 			this.score = 0;
 		}
 		
-		public function autoSelect(model:TerritoriesModel):Territory {
+		public function autoSelect(model:TerritoriesModel, playerManager:PlayerManager):Territory {
 			if(type == HUMAN)
 				return null;
 				
-			return AI.select(model, this);
+			return AI.select(model, playerManager);
 		}
 	}
 }

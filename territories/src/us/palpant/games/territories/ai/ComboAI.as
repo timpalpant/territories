@@ -1,6 +1,5 @@
 package us.palpant.games.territories.ai {
-	import mx.controls.Alert;
-	
+	import us.palpant.games.players.PlayerManager;
 	import us.palpant.games.players.Player;
 	import us.palpant.games.territories.*;
 
@@ -13,79 +12,40 @@ package us.palpant.games.territories.ai {
 
 		public function get name():String { return "Combo"; }
 
-		public function select(model:TerritoriesModel, player:Player):Territory {
+		public function select(model:TerritoriesModel, playerManager:PlayerManager):Territory {
 
-			var defensiveDelta:uint;
-			var offensiveDelta:uint;
-			var totalDelta:uint;
+			var potentialSelections:Array = new Array();
+			var highestDelta:uint = 0;
 			
 			for each(var row:Array in model) {
 				for each(var territory:Territory in row) {
 					
-					// Target territories selected by other players
-					if(territory.selected && territory.owner != player) {
-						if(model.contains(territory.rowIndex+1, territory.columnIndex)) {
-							
-							var down:Territory = model[territory.rowIndex+1][territory.columnIndex];
-							if(!down.selected)
-								examinePotentials(down, model, player);
-
-						} else if(model.contains(territory.rowIndex-1, territory.columnIndex)) {
-							
-							var up:Territory = model[territory.rowIndex-1][territory.columnIndex];
-							if(!up.selected)
-								examinePotentials(up, model, player);
-							
-						} else if(model.contains(territory.rowIndex, territory.columnIndex+1)) {
-							
-							var right:Territory = model[territory.rowIndex][territory.columnIndex+1];
-							if(!right.selected)
-								examinePotentials(right, model, player);
-							
-						} else if(model.contains(territory.rowIndex, territory.columnIndex-1)) {
-							
-							var left:Territory = model[territory.rowIndex][territory.columnIndex-1];
-							if(!left.selected)
-								examinePotentials(left, model, player);
-						}
-					} else {
-						totalDelta = model.getPotentialDelta(territory, player);
+					if(!territory.selected) {
+						var totalDelta:uint = 0;
 						
-						if(totalDelta > _highestDelta) {
-							_highestDelta = totalDelta;
+						for each(var player:Player in playerManager.players)
+							totalDelta += model.getPotentialDelta(territory, player);
+						
+						if(totalDelta > highestDelta) {
+							highestDelta = totalDelta;
 							
-							_potentialSelections = new Array();
-							_potentialSelections.push(left);
-						} else if(totalDelta == _highestDelta) {
-							_potentialSelections.push(left);
+							potentialSelections = new Array();
+							potentialSelections.push(territory);
+						} else if(totalDelta == highestDelta) {
+							potentialSelections.push(territory);
 						}
-					}					
+					}
+					
 				}
 			}
 			
-			Alert.show("Number of potential selections: " + _potentialSelections.length);
+			if(potentialSelections.length > 0) {
+				var random:uint = Math.floor(Math.random() * potentialSelections.length);
+				return potentialSelections[random];
+			}
 			
-			if(_potentialSelections.length > 0) {
-				var random:uint = Math.floor(Math.random() * _potentialSelections.length);
-				return _potentialSelections[random];
-			} else {
-				return totalRandom(model);	
-			}
-		}
-		
-		private function examinePotentials(territory:Territory, model:TerritoriesModel, player:Player):void {
-			var defensiveDelta:uint = model.getPotentialDelta(territory, territory.owner);
-			var offensiveDelta:uint = model.getPotentialDelta(territory, player);
-			var totalDelta:uint = defensiveDelta + offensiveDelta;
-		
-			if(totalDelta > _highestDelta) {
-				_highestDelta = totalDelta;
-				
-				_potentialSelections = new Array();
-				_potentialSelections.push(territory);
-			} else if(totalDelta == _highestDelta) {
-				_potentialSelections.push(territory);
-			}
+			// Backup
+			return totalRandom(model);
 		}
 		
 		private function totalRandom(model:TerritoriesModel):Territory {

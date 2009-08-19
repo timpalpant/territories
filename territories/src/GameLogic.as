@@ -1,6 +1,5 @@
 import flash.events.Event;
 
-import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.events.ListEvent;
 
@@ -8,12 +7,6 @@ import us.palpant.games.boards.gridBoardClasses.GridBoardItem;
 import us.palpant.games.boards.gridBoardClasses.GridBoardRow;
 import us.palpant.games.players.Player;
 import us.palpant.games.players.PlayerManager;
-
-import us.palpant.games.territories.ai.ITerritoriesAI;
-import us.palpant.games.territories.ai.RandomAI;
-import us.palpant.games.territories.ai.OffensiveAI;
-import us.palpant.games.territories.ai.DefensiveAI;
-
 import us.palpant.games.territories.TerritoriesModel;
 import us.palpant.games.territories.Territory;
 
@@ -40,7 +33,7 @@ private function onPlayerSetUp(event:Event):void {
 }
 
 private function computerMove():void {
-	var computerSelection:Territory = playerManager.currentPlayer.autoSelect(model);
+	var computerSelection:Territory = playerManager.currentPlayer.autoSelect(model, playerManager);
 
 	var selectedItem:GridBoardItem = (gameBoard.getChildAt(computerSelection.rowIndex) as GridBoardRow).getChildAt(computerSelection.columnIndex) as GridBoardItem;
 	selectedItem.dispatchSelectionEvent();
@@ -86,16 +79,27 @@ private function newGame():void {
 }
 
 private function endGame():void {
-	var winner:Player;
+	var winners:Array = new Array();
 	var highScore:Number = 0;
 
 	for each(var player:Player in playerManager.players) {
 		if(player.score > highScore) {
-			winner = player;
+			winners = new Array();
+			winners.push(player);
+			
 			highScore = player.score;
+		} else if(player.score == highScore) {
+			winners.push(player);
 		}
 	}
 	
-	if(winner)
-		Alert.show(winner.name + " wins!", "Game over");
+	if(winners.length == 1)
+		Alert.show(winners[0].name + " wins!", "Game over");
+	else if(winners.length > 1) {
+		var tie:String = winners[0].name;
+		for(var i:uint = 1; i < winners.length; i++)
+			tie += ", " + winners[i].name;
+			
+		Alert.show(tie + " tie!", "Game over");
+	}
 }

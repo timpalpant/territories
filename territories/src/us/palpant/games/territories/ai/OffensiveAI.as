@@ -1,5 +1,5 @@
 package us.palpant.games.territories.ai {
-	import us.palpant.games.players.Player;
+	import us.palpant.games.players.PlayerManager;
 	import us.palpant.games.territories.*;
 	
 	public class OffensiveAI implements ITerritoriesAI {
@@ -8,7 +8,7 @@ package us.palpant.games.territories.ai {
 		
 		public function get name():String { return "Offensive"; }
 
-		public function select(model:TerritoriesModel, player:Player):Territory {
+		public function select(model:TerritoriesModel, playerManager:PlayerManager):Territory {
 			
 			var potentialSelections:Array = new Array();
 			var highestDelta:uint = 0;
@@ -17,14 +17,14 @@ package us.palpant.games.territories.ai {
 				for each(var territory:Territory in row) {
 					
 					if(!territory.selected) {
-						var deltaScore:uint = model.getPotentialDelta(territory, player);
+						var offensiveDelta:uint = model.getPotentialDelta(territory, playerManager.currentPlayer);
 						
-						if(deltaScore > highestDelta) {
-							highestDelta = deltaScore;
+						if(offensiveDelta > highestDelta) {
+							highestDelta = offensiveDelta;
 							
 							potentialSelections = new Array();
 							potentialSelections.push(territory);
-						} else if(deltaScore == highestDelta) {
+						} else if(offensiveDelta == highestDelta) {
 							potentialSelections.push(territory);
 						}
 					}
@@ -35,9 +35,10 @@ package us.palpant.games.territories.ai {
 			if(potentialSelections.length > 0) {
 				var random:uint = Math.floor(Math.random() * potentialSelections.length);
 				return potentialSelections[random];
-			} else {
-				return totalRandom(model);
 			}
+			
+			// Backup
+			return totalRandom(model);
 		}
 		
 		private function totalRandom(model:TerritoriesModel):Territory {

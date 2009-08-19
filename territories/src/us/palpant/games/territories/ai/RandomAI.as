@@ -1,5 +1,5 @@
 package us.palpant.games.territories.ai {
-	import us.palpant.games.players.Player;
+	import us.palpant.games.players.PlayerManager;
 	import us.palpant.games.territories.*;
 	
 	public class RandomAI implements ITerritoriesAI {
@@ -14,7 +14,7 @@ package us.palpant.games.territories.ai {
 		 * @return the randomly selected Territory
 		 * 
 		 */
-		public function select(model:TerritoriesModel, player:Player):Territory {
+		public function select(model:TerritoriesModel, playerManager:PlayerManager):Territory {
 			// Randomly select a grid index
 			var randomRow:uint = Math.floor(Math.random() * model.length);
 			var randomColumn:uint = Math.floor(Math.random() * (model[0] as Array).length);
@@ -25,7 +25,7 @@ package us.palpant.games.territories.ai {
 				return potentialSelection;
 				
 			// Otherwise, try again
-			return select(model, player);
+			return select(model, playerManager);
 		}
 
 	}

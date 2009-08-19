@@ -1,4 +1,5 @@
 package us.palpant.games.territories.ai {
+	import us.palpant.games.players.PlayerManager;
 	import us.palpant.games.players.Player;
 	import us.palpant.games.territories.*;
 
@@ -8,7 +9,7 @@ package us.palpant.games.territories.ai {
 		
 		public function get name():String { return "Defensive"; }
 
-		public function select(model:TerritoriesModel, player:Player):Territory {
+		public function select(model:TerritoriesModel, playerManager:PlayerManager):Territory {
 			
 			var potentialSelections:Array = new Array();
 			var highestDelta:uint = 0;
@@ -17,66 +18,21 @@ package us.palpant.games.territories.ai {
 			for each(var row:Array in model) {
 				for each(var territory:Territory in row) {
 					
-					// Target territories selected by other players
-					if(territory.selected && territory.owner != player) {
-						if(model.contains(territory.rowIndex+1, territory.columnIndex) && 
-							!(model[territory.rowIndex+1][territory.columnIndex] as Territory).selected) {
-							
-							var down:Territory = model[territory.rowIndex+1][territory.columnIndex];
-							deltaScore = model.getPotentialDelta(down, territory.owner);
+					if(!territory.selected) {
+						var defensiveDelta:uint = 0;
 						
-							if(deltaScore > highestDelta) {
-								highestDelta = deltaScore;
-								
-								potentialSelections = new Array();
-								potentialSelections.push(down);
-							} else if(deltaScore == highestDelta) {
-								potentialSelections.push(down);
-							}
-						} else if(model.contains(territory.rowIndex-1, territory.columnIndex) && 
-							!(model[territory.rowIndex-1][territory.columnIndex] as Territory).selected) {
-							
-							var up:Territory = model[territory.rowIndex-1][territory.columnIndex];
-							deltaScore = model.getPotentialDelta(up, territory.owner);
+						for each(var player:Player in playerManager.players) {
+							if(player != playerManager.currentPlayer)
+								defensiveDelta += model.getPotentialDelta(territory, player);
+						}
 						
-							if(deltaScore > highestDelta) {
-								highestDelta = deltaScore;
-								
-								potentialSelections = new Array();
-								potentialSelections.push(up);
-							} else if(deltaScore == highestDelta) {
-								potentialSelections.push(up);
-							}
+						if(defensiveDelta > highestDelta) {
+							highestDelta = defensiveDelta;
 							
-						} else if(model.contains(territory.rowIndex, territory.columnIndex+1) && 
-							!(model[territory.rowIndex][territory.columnIndex+1] as Territory).selected) {
-							
-							var right:Territory = model[territory.rowIndex][territory.columnIndex+1];
-							deltaScore = model.getPotentialDelta(right, territory.owner);
-						
-							if(deltaScore > highestDelta) {
-								highestDelta = deltaScore;
-								
-								potentialSelections = new Array();
-								potentialSelections.push(right);
-							} else if(deltaScore == highestDelta) {
-								potentialSelections.push(right);
-							}
-							
-						} else if(model.contains(territory.rowIndex, territory.columnIndex-1) && 
-							!(model[territory.rowIndex][territory.columnIndex-1] as Territory).selected) {
-							
-							var left:Territory = model[territory.rowIndex][territory.columnIndex-1];
-							deltaScore = model.getPotentialDelta(left, territory.owner);
-						
-							if(deltaScore > highestDelta) {
-								highestDelta = deltaScore;
-								
-								potentialSelections = new Array();
-								potentialSelections.push(left);
-							} else if(deltaScore == highestDelta) {
-								potentialSelections.push(left);
-							}
+							potentialSelections = new Array();
+							potentialSelections.push(territory);
+						} else if(defensiveDelta == highestDelta) {
+							potentialSelections.push(territory);
 						}
 					}
 					
@@ -86,9 +42,10 @@ package us.palpant.games.territories.ai {
 			if(potentialSelections.length > 0) {
 				var random:uint = Math.floor(Math.random() * potentialSelections.length);
 				return potentialSelections[random];
-			} else {
-				return totalRandom(model);	
-			}	
+			}
+			
+			// Backup
+			return totalRandom(model);	
 		}
 		
 		private function totalRandom(model:TerritoriesModel):Territory {
