@@ -5,7 +5,6 @@
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:local="us.palpant.games.players.playerManagerClasses.*"
 	layout="vertical" width="50%" height="50%" 
-	resizeEffect="{resizeEffect}" moveEffect="{moveEffect}"
 	title="Add Players" showCloseButton="true"
 	creationComplete="addPlayer()">
 	
@@ -30,6 +29,7 @@
 				// Show the visual representation of the player
 				var playerManagerEntry:PlayerManagerEntry = new PlayerManagerEntry();
 				playerManagerEntry.player = playerManager.add(Player.HUMAN);
+				playerManagerEntry.availableAIs = playerManager.AIs;
 				
 				// Add the player to the playersBox and resize the window
 				playersBox.addChild(playerManagerEntry);
@@ -44,13 +44,23 @@
 		]]>
 	</mx:Script>
 
-	<mx:Resize id="resizeEffect"/>
-	<mx:Move id="moveEffect"/>
+	<mx:resizeEffect>
+		<mx:Resize id="resizeEffect"/>
+	</mx:resizeEffect>
+	
+	<mx:moveEffect>
+		<mx:Move id="moveEffect"/>
+	</mx:moveEffect>
+	
+	<mx:addedEffect>
+		<mx:Fade id="fadeEffect" duration="1500"/>
+	</mx:addedEffect>
 	
 	<mx:VBox id="playersBox" resizeEffect="{resizeEffect}"/>
 	
 	<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
-		<mx:Label id="maxPlayersLabel" text="MAXIMUM PLAYERS REACHED" color="#DD0000" visible="false"/>
+		<mx:Label id="maxPlayersLabel" text="MAXIMUM PLAYERS REACHED" color="#DD0000" 
+			visible="false" showEffect="{fadeEffect}"/>
 		<mx:LinkButton id="addPlayerBtn" label="Add Player" icon="@Embed(source='/assets/images/plus.png')"
 			click="addPlayer()"/>
 	</mx:HBox>

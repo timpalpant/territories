@@ -3,10 +3,12 @@
 	Visual representation of a player
 -->
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
-	width="100%" verticalAlign="middle">
+	width="100%" verticalAlign="top">
 	
 	<mx:Script>
 		<![CDATA[
+			import us.palpant.games.territories.ai.ITerritoriesAI;
+			import mx.collections.ArrayCollection;
 			import mx.events.ColorPickerEvent;
 			import us.palpant.games.players.Player;
 			
@@ -14,6 +16,11 @@
 			 * Reference to the player model which this entry represents
 			 */
 			[Bindable] public var player:Player;
+			
+			/**
+			 * Reference to the set of available AIs in the PlayerManager
+			 */
+			[Bindable] public var availableAIs:ArrayCollection;
 			
 			[Embed(source="/assets/images/person.png")]
 			private static const person:Class;
@@ -45,11 +52,16 @@
 	</mx:Script>
 	
 	<mx:addedEffect>
-		<mx:Fade duration="1500"/>
+		<mx:Fade id="fadeEffect" duration="1500"/>
 	</mx:addedEffect>
+	
+	<mx:resizeEffect>
+		<mx:Resize id="resizeEffect"/>
+	</mx:resizeEffect>
 	
 	<!-- Set up reverse bindings so changes in the form are reflected in the object -->
 	<mx:Binding source="nameField.text" destination="player.name" />
+	<mx:Binding source="aiSelector.selectedItem as ITerritoriesAI" destination="player.AI" />
 	
 	<mx:Image id="playerTypeImage" source="{person}" 
 		height="40" width="40"
@@ -57,7 +69,14 @@
 		click="changePlayerType()"/>
 		
 	<mx:Label text="Name:"/>
-	<mx:TextInput id="nameField" text="{player.name}"/>
+		
+	<mx:VBox resizeEffect="{resizeEffect}">
+		<mx:TextInput id="nameField" text="{player.name}"/>
+		<mx:ComboBox id="aiSelector" showEffect="{fadeEffect}"
+			dataProvider="{availableAIs}" labelField="name"
+			visible="{player.type == Player.COMPUTER}" includeInLayout="{player.type == Player.COMPUTER}"/>
+	</mx:VBox>
+	
 	<mx:ColorPicker id="colorField" selectedColor="{player.color}" change="onColorChange(event)"/>
 	
 </mx:HBox>

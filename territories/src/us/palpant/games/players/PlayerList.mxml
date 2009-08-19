@@ -7,6 +7,10 @@
 			
 			[Bindable] public var players:ArrayCollection;
 			[Bindable] public var currentPlayer:Player;
+			
+			private function aiLabelFunction(item:Object, column:DataGridColumn):String {
+				return item.AI.name;
+			}
 		]]>
 	</mx:Script>
 
@@ -20,8 +24,12 @@
  					</mx:Component>
  				</mx:itemRenderer>
  			</mx:DataGridColumn>
- 			<mx:DataGridColumn id="nameColumn" headerText="Name" 
+ 			<mx:DataGridColumn id="nameColumn" headerText="Name"
+ 				width="128"
  				dataField="name" />
+ 			<mx:DataGridColumn id="aiColumn" headerText="AI" 
+ 				width="70"
+ 				dataField="AI" labelFunction="aiLabelFunction" />
  			<mx:DataGridColumn id="scoreColumn" headerText="Score" width="50"
  				dataField="score" />
  		</mx:columns>

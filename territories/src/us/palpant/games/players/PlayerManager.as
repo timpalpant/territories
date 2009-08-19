@@ -9,6 +9,9 @@ package us.palpant.games.players {
 	import mx.managers.PopUpManager;
 	
 	import us.palpant.games.players.playerManagerClasses.PlayerManagerWindow;
+	import us.palpant.games.territories.ai.DefensiveAI;
+	import us.palpant.games.territories.ai.OffensiveAI;
+	import us.palpant.games.territories.ai.RandomAI;
 	import us.palpant.utils.PseudoRandomColor;
 	
 	/**
@@ -53,6 +56,13 @@ package us.palpant.games.players {
 		public function get maxPlayers():uint { return _maxPlayers; }
 		
 		/**
+		 * Collection of AIs available to computer players
+		 */
+		private var _AIs:ArrayCollection = new ArrayCollection();
+		
+		public function get AIs():ArrayCollection { return _AIs; }
+		
+		/**
 		 * TitleWindow which allows visual player management 
 		 */
 		private var _managerWindow:PlayerManagerWindow;
@@ -65,6 +75,10 @@ package us.palpant.games.players {
 		 */
 		public function PlayerManager(maxPlayers:uint = 2) {
 			_maxPlayers = maxPlayers;
+			
+			_AIs.addItem(new RandomAI());
+			_AIs.addItem(new OffensiveAI());
+			_AIs.addItem(new DefensiveAI());
 		}
 		
 		/**

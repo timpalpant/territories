@@ -1,4 +1,8 @@
 package us.palpant.games.players {
+	import us.palpant.games.territories.TerritoriesModel;
+	import us.palpant.games.territories.Territory;
+	import us.palpant.games.territories.ai.ITerritoriesAI;
+	
 
 	/**
 	 * Encapsulates player information 
@@ -21,6 +25,7 @@ package us.palpant.games.players {
 		 * Player type (human/computer) 
 		 */
 		[Bindable] public var type:String;
+		[Bindable] public var AI:ITerritoriesAI;
 		
 		/**
 		 * Player's color for game pieces, etc. 
@@ -44,6 +49,13 @@ package us.palpant.games.players {
 			this.name = name;
 			this.color = color;
 			this.score = 0;
+		}
+		
+		public function autoSelect(model:TerritoriesModel):Territory {
+			if(type == HUMAN)
+				return null;
+				
+			return AI.select(model, this);
 		}
 	}
 }

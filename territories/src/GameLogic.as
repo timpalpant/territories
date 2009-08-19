@@ -22,10 +22,6 @@ import us.palpant.games.territories.Territory;
 [Bindable] private var playerManager:PlayerManager;
 [Bindable] private var model:TerritoriesModel;
 
-// AIs
-[Bindable] private var computerAIs:ArrayCollection;
-[Bindable] private var currentAI:ITerritoriesAI;
-
 
 private function onCreationComplete():void {
 	// Set up players
@@ -35,18 +31,6 @@ private function onCreationComplete():void {
 	
 	// Set up the model
 	model = new TerritoriesModel(gameBoard.rows, gameBoard.columns);
-	
-	// Set up AIs
-	var defensiveAI:ITerritoriesAI = new DefensiveAI();
-	var randomAI:ITerritoriesAI = new RandomAI();
-	var offensiveAI:ITerritoriesAI = new OffensiveAI();
-
-	computerAIs = new ArrayCollection();
-	computerAIs.addItem(defensiveAI);
-	computerAIs.addItem(randomAI);
-	computerAIs.addItem(offensiveAI);
-	
-	currentAI = offensiveAI;
 }
 
 private function onPlayerSetUp(event:Event):void {
@@ -55,12 +39,8 @@ private function onPlayerSetUp(event:Event):void {
 		computerMove();
 }
 
-private function onAIChange(event:ListEvent):void {
-	currentAI = event.currentTarget.selectedItem;
-}
-
 private function computerMove():void {
-	var computerSelection:Territory = currentAI.select(model, playerManager.currentPlayer);
+	var computerSelection:Territory = playerManager.currentPlayer.autoSelect(model);
 
 	var selectedItem:GridBoardItem = (gameBoard.getChildAt(computerSelection.rowIndex) as GridBoardRow).getChildAt(computerSelection.columnIndex) as GridBoardItem;
 	selectedItem.dispatchSelectionEvent();

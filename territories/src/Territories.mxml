@@ -28,23 +28,6 @@
 				
 		</mx:Panel>
 		
-		<mx:Panel title="AI" width="100%"
-			layout="vertical">
-			
-			<mx:resizeEffect>
-				<mx:Resize id="resizeEffect"/>
-			</mx:resizeEffect>
-	
-			<mx:HBox verticalAlign="middle">
-				<mx:Label text="Select:"/>
-				<mx:ComboBox id="AISelector" 
-					dataProvider="{computerAIs}" labelField="name"
-					selectedItem="{currentAI}"
-					change="onAIChange(event)"/>
-			</mx:HBox>
-				
-		</mx:Panel>
-		
 		<mx:Panel width="100%" headerHeight="10" 
 			layout="vertical" horizontalAlign="center">
 			<mx:LinkButton label="New Game" click="newGame()"/>
