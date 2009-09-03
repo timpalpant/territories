@@ -10,7 +10,7 @@ import us.palpant.games.players.PlayerManager;
 import us.palpant.games.territories.TerritoriesModel;
 import us.palpant.games.territories.Territory;
 
-
+//Matt, test checkin
 // Player manager and game model
 [Bindable] private var playerManager:PlayerManager;
 [Bindable] private var model:TerritoriesModel;
