@@ -7,10 +7,16 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import mx.effects.RemoveItemAction;
 			import us.palpant.games.territories.ai.ITerritoriesAI;
 			import mx.collections.ArrayCollection;
 			import mx.events.ColorPickerEvent;
 			import us.palpant.games.players.Player;
+			
+			/**
+			 * Name of delete events for player manager entries
+			 */
+			public static var DELETE_EVENT:String = "DELETE_EVENT";
 			
 			/**
 			 * Reference to the player model which this entry represents
@@ -27,6 +33,9 @@
 			
 			[Embed(source="/assets/images/computer.png")]
 			private static const computer:Class;
+			
+			[Embed(source="/assets/images/red-x-icon.png")]
+			private static const redex:Class;
 			
 			/**
 			 * Manual reverse binding since it doesn't work correctly for ColorPicker
@@ -47,6 +56,13 @@
 					player.type = Player.HUMAN;
 					playerTypeImage.source = person;
 				}
+			}
+			
+			/**
+			 * Let player manager know to delete this record
+			 */
+			private function removePlayer():void{
+				dispatchEvent(new Event(PlayerManagerEntry.DELETE_EVENT));
 			}
 		]]>
 	</mx:Script>
@@ -79,4 +95,8 @@
 	
 	<mx:ColorPicker id="colorField" selectedColor="{player.color}" change="onColorChange(event)"/>
 	
+	<mx:Image id="deletePlayer" source="{redex}" 
+		height="20" width="20"
+		buttonMode="true"
+		click="removePlayer()"/>
 </mx:HBox>

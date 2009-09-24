@@ -30,6 +30,7 @@
 				var playerManagerEntry:PlayerManagerEntry = new PlayerManagerEntry();
 				playerManagerEntry.player = playerManager.add(Player.HUMAN);
 				playerManagerEntry.availableAIs = playerManager.AIs;
+				playerManagerEntry.addEventListener(PlayerManagerEntry.DELETE_EVENT, removePlayerEventListener);
 				
 				// Add the player to the playersBox and resize the window
 				playersBox.addChild(playerManagerEntry);
@@ -39,6 +40,19 @@
 				if(playerManager.players.length >= playerManager.maxPlayers) {
 					addPlayerBtn.enabled = false;
 					maxPlayersLabel.visible = true;
+				}
+			}
+			
+			/** 
+			 * Visually remove a player from the manager
+			 */
+			public function removePlayerEventListener(event:Event):void {
+				if(playerManager.players.length != playerManager.minPlayers) {
+					var playerEntry:PlayerManagerEntry = event.currentTarget as PlayerManagerEntry;
+					playersBox.removeChild(playerEntry);
+					playerManager.remove(playerEntry.player);
+					addPlayerBtn.enabled = true;
+					maxPlayersLabel.visible = false;
 				}
 			}
 		]]>

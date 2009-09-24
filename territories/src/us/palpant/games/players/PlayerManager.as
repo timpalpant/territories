@@ -53,6 +53,14 @@ package us.palpant.games.players {
 		
 		public function get maxPlayers():uint { return _maxPlayers; }
 		
+		
+		/**
+		 * The min number of players allowed in this game 
+		 */
+		private var _minPlayers:uint;
+		
+		public function get minPlayers():uint { return _minPlayers; }
+		
 		/**
 		 * Collection of AIs available to computer players
 		 */
@@ -71,9 +79,9 @@ package us.palpant.games.players {
 		 * @param maxPlayers number of people that can play the game
 		 * 
 		 */
-		public function PlayerManager(maxPlayers:uint = 2) {
+		public function PlayerManager(maxPlayers:uint = 2, minPlayers:uint = 1) {
 			_maxPlayers = maxPlayers;
-			
+			_minPlayers = minPlayers;
 			_AIs.addItem(new RandomAI());
 			_AIs.addItem(new OffensiveAI());
 			_AIs.addItem(new DefensiveAI());
@@ -103,6 +111,15 @@ package us.palpant.games.players {
 			players.addItem(player);
 			
 			return player;
+		}
+		
+		/**
+		 * Removes a player from the game. 
+		 * @param player
+		 * 
+		 */
+		public function remove(player:Player):void{
+			players.removeItemAt(players.getItemIndex(player));
 		}
 		
 		/**
